@@ -14,7 +14,7 @@ module TestProf
             end
 
             unless @overrides.empty?
-              variation += @overrides.keys.sort.to_s.gsub(/[\\":]/, "")
+              variation += @overrides.keys.map(&:to_sym).sort.to_s.gsub(/[\\":]/, "")
             end
           end
         end
