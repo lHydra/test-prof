@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+- Add `logger` as a runtime dependency (it's no longer a default gem in Ruby 4.0). ([@moznion][])
+
 ## 1.6.1 (2026-04-02)
 
 - Require MFA to publish the gem.
@@ -506,3 +508,4 @@ See [changelog](https://github.com/test-prof/test-prof/blob/v0.8.0/CHANGELOG.md)
 [@elasticspoon]: https://github.com/elasticspoon
 [@Rylan12]: https://github.com/Rylan12
 [@kddnewton]: https://github.com/kddnewton
+[@moznion]: https://github.com/moznion
