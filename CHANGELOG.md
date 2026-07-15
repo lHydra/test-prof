@@ -2,8 +2,6 @@
 
 ## master (unreleased)
 
-## 1.6.2 (2026-07-10)
-
 - Add support for ruby-prof's FlameGraphPrinter
 
 ## 1.6.1 (2026-04-02)
