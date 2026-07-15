@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+- Add support for ruby-prof's FlameGraphPrinter
+
 ## 1.6.1 (2026-04-02)
 
 - Require MFA to publish the gem.
