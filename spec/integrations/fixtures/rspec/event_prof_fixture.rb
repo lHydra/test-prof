@@ -9,7 +9,7 @@ TestProf::EventProf.configure do |config|
 end
 
 module Instrumenter
-  def self.notify(event = "test.event", time)
+  def self.notify(event = "test.event", time = 0)
     sleep 0.1
     ActiveSupport::Notifications.publish(
       event,

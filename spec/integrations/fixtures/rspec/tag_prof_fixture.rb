@@ -8,7 +8,7 @@ TestProf.configure do |config|
 end
 
 module Instrumenter
-  def self.notify(event = "test.event", time)
+  def self.notify(event = "test.event", time = 0)
     ActiveSupport::Notifications.publish(
       event,
       0,
