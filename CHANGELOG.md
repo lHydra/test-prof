@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+- Add `logger` as a runtime dependency (it's no longer a default gem in Ruby 4.0). ([@moznion][])
+
 - Fix `RSpecDissect` crashing with `undefined method 'last' for nil` when a `let` is evaluated on a non-example thread (e.g. a Capybara `:js`/system spec server thread). The span-stack thread-local is now lazily initialized so off-example-thread access is a safe no-op.
 
 - Add support for ruby-prof's FlameGraphPrinter
@@ -510,3 +512,4 @@ See [changelog](https://github.com/test-prof/test-prof/blob/v0.8.0/CHANGELOG.md)
 [@elasticspoon]: https://github.com/elasticspoon
 [@Rylan12]: https://github.com/Rylan12
 [@kddnewton]: https://github.com/kddnewton
+[@moznion]: https://github.com/moznion
