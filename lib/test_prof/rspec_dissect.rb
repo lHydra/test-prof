@@ -86,11 +86,11 @@ module TestProf
       end
 
       def current_span
-        Thread.current[:_rspec_dissect_spans_stack].last
+        span_stack.last
       end
 
       def span_stack
-        Thread.current[:_rspec_dissect_spans_stack]
+        Thread.current[:_rspec_dissect_spans_stack] ||= []
       end
 
       def track(type, id: nextid, **meta)

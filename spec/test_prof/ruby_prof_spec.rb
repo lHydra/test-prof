@@ -117,5 +117,21 @@ describe TestProf::RubyProf do
 
       expect(File.exist?(File.join(TestProf.config.output_dir, "ruby-prof-report-call_stack-cpu-stub-123454321.html"))).to eq true
     end
+
+    specify "with flame_graph printer" do
+      described_class.config.printer = :flame_graph
+      described_class.config.exclude_common_methods = false
+      described_class.config.test_prof_exclusions_enabled = false
+
+      expect(profile).to receive(:exclude_common_methods!).never
+
+      stub_const("RubyProf::FlameGraphPrinter", printer_class)
+      expect(printer_class).to receive(:new).with(result).and_return(printer)
+      expect(printer).to receive(:print).with(anything, min_percent: 1).and_return("")
+
+      subject.dump("stub")
+
+      expect(File.exist?(File.join(TestProf.config.output_dir, "ruby-prof-report-flame_graph-wall-stub.html"))).to eq true
+    end
   end
 end
