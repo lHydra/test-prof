@@ -31,7 +31,8 @@ module TestProf
         "." => "DotPrinter",
         "call_stack" => "CallStackPrinter",
         "call_tree" => "CallTreePrinter",
-        "multi" => "MultiPrinter"
+        "multi" => "MultiPrinter",
+        "flame_graph" => "FlameGraphPrinter"
       }.freeze
 
       # Mapping from printer to report file extension
@@ -40,7 +41,8 @@ module TestProf
         "graph_html" => "html",
         "dot" => "dot",
         "." => "dot",
-        "call_stack" => "html"
+        "call_stack" => "html",
+        "flame_graph" => "html"
       }.freeze
 
       LOGFILE_PREFIX = "ruby-prof-report"

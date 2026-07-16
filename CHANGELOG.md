@@ -4,6 +4,8 @@
 
 - Fix `RSpecDissect` crashing with `undefined method 'last' for nil` when a `let` is evaluated on a non-example thread (e.g. a Capybara `:js`/system spec server thread). The span-stack thread-local is now lazily initialized so off-example-thread access is a safe no-op.
 
+- Add support for ruby-prof's FlameGraphPrinter
+
 ## 1.6.1 (2026-04-02)
 
 - Require MFA to publish the gem.
