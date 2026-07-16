@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 1.6.2 (2026-07-16)
+
 - Add `logger` as a runtime dependency (it's no longer a default gem in Ruby 4.0). ([@moznion][])
 
 - Fix `RSpecDissect` crashing with `undefined method 'last' for nil` when a `let` is evaluated on a non-example thread (e.g. a Capybara `:js`/system spec server thread). The span-stack thread-local is now lazily initialized so off-example-thread access is a safe no-op.
