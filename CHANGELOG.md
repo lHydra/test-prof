@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+- Fix `before_all` firing N times in Minitest 6. ([@palkan][])
+
 ## 1.6.2 (2026-07-16)
 
 - Add `logger` as a runtime dependency (it's no longer a default gem in Ruby 4.0). ([@moznion][])

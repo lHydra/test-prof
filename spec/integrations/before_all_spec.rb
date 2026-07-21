@@ -58,6 +58,7 @@ describe "BeforeAll" do
       output = run_minitest("before_all")
 
       expect(output).to include("WE ALL HUMANS AFTER ALL: 1")
+      expect(output.scan("WE ALL HUMANS AFTER ALL").size).to eq 1
     end
 
     specify "inheritance" do

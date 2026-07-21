@@ -6,15 +6,29 @@ Minitest.singleton_class.prepend(Module.new do
   attr_reader :previous_klass
   @previous_klass = nil
 
-  def run_one_method(klass, method_name)
-    return super unless klass.respond_to?(:parallelized) && klass.parallelized
+  # Minitest 6+
+  if Minitest::Runnable.method_defined?(:run_suite)
+    def run(klass, *rest)
+      return super unless klass.respond_to?(:parallelized) && klass.parallelized
 
-    if @previous_klass && @previous_klass != klass
-      @previous_klass.before_all_executor&.deactivate!
+      if @previous_klass && @previous_klass != klass
+        @previous_klass.before_all_executor&.deactivate!
+      end
+      @previous_klass = klass
+
+      super
     end
-    @previous_klass = klass
+  else
+    def run_one_method(klass, *rest)
+      return super unless klass.respond_to?(:parallelized) && klass.parallelized
 
-    super
+      if @previous_klass && @previous_klass != klass
+        @previous_klass.before_all_executor&.deactivate!
+      end
+      @previous_klass = klass
+
+      super
+    end
   end
 end)
 
@@ -162,13 +176,24 @@ module TestProf
             end
           end)
 
-          singleton_class.prepend(Module.new do
-            def run(*)
-              super
-            ensure
-              before_all_executor&.deactivate! unless parallelized
-            end
-          end)
+          # Minitest 6+
+          if singleton_class.method_defined?(:run_suite)
+            singleton_class.prepend(Module.new do
+              def run_suite(*)
+                super
+              ensure
+                before_all_executor&.deactivate! unless parallelized
+              end
+            end)
+          else
+            singleton_class.prepend(Module.new do
+              def run(*)
+                super
+              ensure
+                before_all_executor&.deactivate! unless parallelized
+              end
+            end)
+          end
         end
 
         def after_all(&block)
