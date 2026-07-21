@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 1.6.3 (2026-07-20)
+
 - Fix `before_all` firing N times in Minitest 6. ([@palkan][])
 
 ## 1.6.2 (2026-07-16)
