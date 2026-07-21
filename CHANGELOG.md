@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+- Fix `before_all` with parallel Minitest 6. ([@GabrielNagy][])
+
 ## 1.6.3 (2026-07-20)
 
 - Fix `before_all` firing N times in Minitest 6. ([@palkan][])
