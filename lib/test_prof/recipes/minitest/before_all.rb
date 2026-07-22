@@ -3,22 +3,13 @@
 require "test_prof/before_all"
 
 Minitest.singleton_class.prepend(Module.new do
-  attr_reader :previous_klass
+  attr_accessor :previous_klass
   @previous_klass = nil
+end)
 
-  # Minitest 6+
-  if Minitest::Runnable.method_defined?(:run_suite)
-    def run(klass, *rest)
-      return super unless klass.respond_to?(:parallelized) && klass.parallelized
-
-      if @previous_klass && @previous_klass != klass
-        @previous_klass.before_all_executor&.deactivate!
-      end
-      @previous_klass = klass
-
-      super
-    end
-  else
+# Minitest 5
+unless Minitest::Runnable.respond_to?(:run_suite)
+  Minitest.singleton_class.prepend(Module.new do
     def run_one_method(klass, *rest)
       return super unless klass.respond_to?(:parallelized) && klass.parallelized
 
@@ -29,8 +20,8 @@ Minitest.singleton_class.prepend(Module.new do
 
       super
     end
-  end
-end)
+  end)
+end
 
 module TestProf
   module BeforeAll
@@ -115,6 +106,24 @@ module TestProf
           base.extend ClassMethods
 
           base.cattr_accessor :parallelized
+          # Minitest 6+
+          if ::Minitest::Runnable.respond_to?(:run_suite)
+            base.prepend(Module.new do
+              def run(*)
+                klass = self.class
+                return super unless klass.parallelized
+
+                previous_klass = ::Minitest.previous_klass
+                if previous_klass && previous_klass != klass
+                  previous_klass.before_all_executor&.deactivate!
+                end
+                ::Minitest.previous_klass = klass
+
+                super
+              end
+            end)
+          end
+
           if base.respond_to?(:parallelize_teardown)
             base.parallelize_teardown do
               last_klass = ::Minitest.previous_klass
