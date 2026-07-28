@@ -55,6 +55,7 @@ module Minitest
             <<~GROUP
               #{description.truncate} (#{location}) – #{time.duration} (#{group[:count]} / #{group[:examples]}) of #{run_time.duration} (#{time_percentage}%)
             GROUP
+          @results << format_breakdown(group[:breakdown]) if group[:breakdown]
         end
       end
 
@@ -76,7 +77,15 @@ module Minitest
             <<~GROUP
               #{description.truncate} (#{location}) – #{time.duration} (#{example[:count]}) of #{run_time.duration} (#{time_percentage}%)
             GROUP
+          @results << format_breakdown(example[:breakdown]) if example[:breakdown]
         end
+      end
+
+      def format_breakdown(breakdown, indent: "  ")
+        lines = breakdown.map do |row|
+          "#{indent}#{row[:label]} → #{row[:time].duration} (#{row[:count]})"
+        end
+        "#{lines.join("\n")}\n"
       end
 
       def time_percentage(time, total_time)

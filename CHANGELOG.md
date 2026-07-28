@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 - Fix `before_all` with parallel Minitest 6. ([@GabrielNagy][])
+- Add EventProf `callback.run` event to profile ActiveSupport before/after callbacks. ([@lHydra][])
 
 ## 1.6.3 (2026-07-20)
 
