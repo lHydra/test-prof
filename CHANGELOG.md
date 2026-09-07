@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 - Fix `before_all` with parallel Minitest 6. ([@GabrielNagy][])
+- Add `EVENT_PROF_FORMAT` (`json`) support to EventProf along with the printers infrastructure (`Printers::Simple`, `Printers::Json`). ([@lHydra][])
 
 ## 1.6.3 (2026-07-20)
 
